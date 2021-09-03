@@ -446,11 +446,13 @@ func (dt *Default) HTMLTemplate() string {
                         {{ end }}
                       {{ end }}
 
-                    <p>
+										{{ if (ne .Email.Body.Signature " ") }}
+										<p>
                       {{.Email.Body.Signature}},
                       <br />
                       {{.Hermes.Product.Name}}
                     </p>
+										{{ end }}
 
                     {{ if (eq .Email.Body.FreeMarkdown "") }}
                       {{ with .Email.Body.Actions }} 
@@ -557,7 +559,7 @@ func (dt *Default) PlainTextTemplate() string {
     <p>{{ $line }}<p>
   {{ end }}
 {{ end }}
-<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>
+{{ if (ne .Email.Body.Signature " ") }}<p>{{.Email.Body.Signature}},<br>{{.Hermes.Product.Name}} - {{.Hermes.Product.Link}}</p>{{ end }}
 
 <p>{{.Hermes.Product.Copyright}}</p>
 `
